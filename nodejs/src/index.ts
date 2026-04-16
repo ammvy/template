@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 console.log("Hello from Antigravity Node.js Template!");
 
 function main() {
