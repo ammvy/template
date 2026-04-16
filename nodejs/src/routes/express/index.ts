@@ -13,15 +13,17 @@ import { CategoryPrismaDAO } from "../../daos/prisma/category.dao.js";
 
 export function createExpressApp(): Express {
   const app = express();
-  
+
   // CORS configuration - allow all requests
-  app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: false,
-  }));
-  
+  app.use(
+    cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: false,
+    }),
+  );
+
   app.use(express.json());
 
   // Dependecy Injection
@@ -100,7 +102,7 @@ export function createExpressApp(): Express {
     apis: ["./src/routes/express/*.ts"],
   });
 
-  app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Routes
   app.use("/tasks", taskRouter(taskController));

@@ -59,7 +59,7 @@ export function TaskBoard() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {tasks.map((task) => (
+          {tasks?.map((task) => (
             <TaskItem key={task.id} task={task} onEdit={handleEdit} />
           ))}
         </div>
