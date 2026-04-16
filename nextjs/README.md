@@ -1,105 +1,36 @@
-# Task Manager Frontend - Next.js
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Frontend da aplicação de gerenciamento de tarefas construído com **Next.js 15**, **React 19**, **Tailwind CSS**, **React Query** e **TypeScript**.
+## Getting Started
 
-## 🚀 Quick Start
+First, run the development server:
 
-### 1. Instalar dependências
 ```bash
-pnpm install
-```
-
-### 2. Rodar servidor de desenvolvimento
-```bash
+npm run dev
+# or
+yarn dev
+# or
 pnpm dev
+# or
+bun dev
 ```
 
-Acesse `http://localhost:3000` no navegador.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### 3. Criar build para produção
-```bash
-pnpm build
-pnpm start
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## 📁 Estrutura do Projeto
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Veja [ARCHITECTURE.md](./ARCHITECTURE.md) para uma documentação detalhada da arquitetura, padrões e convenções de nomeação.
+## Learn More
 
-```
-src/
-├── app/                  # App Router do Next.js
-├── components/          # Componentes UI reutilizáveis
-├── modules/             # Componentes compostos (com lógica)
-├── hooks/               # Custom hooks (React Query)
-├── lib/                 # Configurações e utilitários
-└── types/               # Tipos TypeScript
-```
+To learn more about Next.js, take a look at the following resources:
 
-## 🔌 Requisitos
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- **Node.js** >= 18
-- **pnpm** >= 8
-- **Backend** rodando em `http://localhost:3333`
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## 🛠 Tecnologias
+## Deploy on Vercel
 
-- **Next.js 15** - React framework
-- **React 19** - UI library
-- **TypeScript** - Tipagem estática
-- **Tailwind CSS** - Styling
-- **React Query** - State management assíncrono
-- **Axios** - Client HTTP
-- **Lucide React** - Ícones
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## 📝 Variáveis de Ambiente
-
-Crie um arquivo `.env.local`:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:3333
-```
-
-## 💡 Padrões
-
-- **Components**: Sem lógica (presentational)
-- **Modules**: Com lógica de negócio e orquestração
-- **Hooks**: Encapsula operações de API via React Query
-- **Nomeação**: kebab-case para arquivos, PascalCase para componentes
-- **Styling**: Tailwind CSS puro
-
-## 🌐 Endpoints da API
-
-### Tasks
-- `GET /tasks` - Listar tarefas
-- `POST /tasks` - Criar tarefa
-- `PUT /tasks/:id` - Atualizar tarefa
-- `DELETE /tasks/:id` - Deletar tarefa
-
-### Categories
-- `GET /categories` - Listar categorias
-- `POST /categories` - Criar categoria
-- `PUT /categories/:id` - Atualizar categoria
-- `DELETE /categories/:id` - Deletar categoria
-
-## 📖 Documentação Completa
-
-Veja [ARCHITECTURE.md](./ARCHITECTURE.md) para:
-- Estrutura detalhada de pastas
-- Padrões de desenvolvimento
-- Fluxo de dados
-- Integração com backend
-- Troubleshooting
-
-## ⚙️ Scripts Disponíveis
-
-| Script | Descrição |
-|--------|-----------|
-| `pnpm dev` | Inicia servidor de desenvolvimento |
-| `pnpm build` | Cria build de produção |
-| `pnpm start` | Inicia servidor de produção |
-| `pnpm lint` | Executa linter |
-
----
-
-**Desenvolvido como parte do template de referência pessoal.**
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
