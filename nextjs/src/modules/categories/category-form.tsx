@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useCreateCategory, useUpdateCategory } from '@/hooks/categories';
-import { Input } from '@/components/input';
-import { Button } from '@/components/button';
-import { Category } from '@/types/category';
+import React, { useState } from "react";
+import { useCreateCategory, useUpdateCategory } from "@/hooks/categories";
+import { Input } from "@/components/input";
+import { Button } from "@/components/button";
+import { Category } from "@/types/category";
 
 interface CategoryFormProps {
   category?: Category;
@@ -13,18 +13,22 @@ interface CategoryFormProps {
 }
 
 const colorOptions = [
-  '#FF6B6B',
-  '#4ECDC4',
-  '#45B7D1',
-  '#FFA502',
-  '#FFD93D',
-  '#6BCB77',
-  '#9D84B7',
-  '#FF6B9D',
+  "#FF6B6B",
+  "#4ECDC4",
+  "#45B7D1",
+  "#FFA502",
+  "#FFD93D",
+  "#6BCB77",
+  "#9D84B7",
+  "#FF6B9D",
 ];
 
-export function CategoryForm({ category, onSubmit, onCancel }: CategoryFormProps) {
-  const [nome, setNome] = useState(category?.nome || '');
+export function CategoryForm({
+  category,
+  onSubmit,
+  onCancel,
+}: CategoryFormProps) {
+  const [nome, setNome] = useState(category?.nome || "");
   const [cor, setCor] = useState(category?.cor || colorOptions[0]);
 
   const createCategory = useCreateCategory();
@@ -36,7 +40,7 @@ export function CategoryForm({ category, onSubmit, onCancel }: CategoryFormProps
     e.preventDefault();
 
     if (!nome.trim()) {
-      alert('Nome da categoria é obrigatório');
+      alert("Nome da categoria é obrigatório");
       return;
     }
 
@@ -55,7 +59,7 @@ export function CategoryForm({ category, onSubmit, onCancel }: CategoryFormProps
       }
       onSubmit?.();
     } catch (error) {
-      console.error('Erro ao salvar categoria:', error);
+      console.error("Erro ao salvar categoria:", error);
     }
   };
 
@@ -69,7 +73,7 @@ export function CategoryForm({ category, onSubmit, onCancel }: CategoryFormProps
         disabled={isLoading}
       />
       <div className="w-full">
-        <label className="block text-sm font-medium text-gray-900 mb-2">
+        <label className="block text-sm font-medium text-brand-gray-light mb-2">
           Cor
         </label>
         <div className="grid grid-cols-4 gap-2">
@@ -80,8 +84,8 @@ export function CategoryForm({ category, onSubmit, onCancel }: CategoryFormProps
               onClick={() => setCor(colorOption)}
               className={`w-full aspect-square rounded-lg border-2 transition ${
                 cor === colorOption
-                  ? 'border-gray-900'
-                  : 'border-transparent hover:border-gray-300'
+                  ? "border-gray-900"
+                  : "border-transparent hover:border-gray-300"
               }`}
               style={{ backgroundColor: colorOption }}
               title={colorOption}
@@ -90,11 +94,16 @@ export function CategoryForm({ category, onSubmit, onCancel }: CategoryFormProps
         </div>
       </div>
       <div className="flex gap-2 justify-end">
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isLoading}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          disabled={isLoading}
+        >
           Cancelar
         </Button>
         <Button type="submit" variant="primary" isLoading={isLoading}>
-          {category ? 'Atualizar' : 'Criar'} Categoria
+          {category ? "Atualizar" : "Criar"} Categoria
         </Button>
       </div>
     </form>

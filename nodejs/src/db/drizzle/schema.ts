@@ -8,7 +8,9 @@ export const tarefas = pgTable("tarefas", {
   nome: text("nome").notNull(),
   descricao: text("descricao"),
   status: statusEnum("status").notNull().default("PARADO"),
+  categoriaId: integer("categoria_id").references(() => categorias.id),
 });
+
 
 export const categorias = pgTable("categorias", {
   id: serial("id").primaryKey(),
@@ -31,9 +33,14 @@ export const tarefasParaCategorias = pgTable(
   })
 );
 
-export const tarefasRelations = relations(tarefas, ({ many }) => ({
+export const tarefasRelations = relations(tarefas, ({ one, many }) => ({
+  categoria: one(categorias, {
+    fields: [tarefas.categoriaId],
+    references: [categorias.id],
+  }),
   tarefasParaCategorias: many(tarefasParaCategorias),
 }));
+
 
 export const categoriasRelations = relations(categorias, ({ many }) => ({
   tarefasParaCategorias: many(tarefasParaCategorias),

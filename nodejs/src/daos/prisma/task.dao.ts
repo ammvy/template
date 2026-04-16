@@ -11,19 +11,24 @@ export class TaskPrismaDAO implements ITaskDAO {
         nome: data.nome,
         descricao: data.descricao,
         status: data.status as PrismaStatus,
+        categoriaId: data.categoriaId,
       },
+      include: { categoria: true },
     });
     return task as Task;
   }
 
   async list(): Promise<Task[]> {
-    const tasks = await prisma.tarefa.findMany();
+    const tasks = await prisma.tarefa.findMany({
+      include: { categoria: true },
+    });
     return tasks as Task[];
   }
 
   async findById(id: number): Promise<Task | null> {
     const task = await prisma.tarefa.findUnique({
       where: { id },
+      include: { categoria: true },
     });
     return task as Task | null;
   }
@@ -35,16 +40,26 @@ export class TaskPrismaDAO implements ITaskDAO {
   }
 
   async update(id: number, data: Partial<Omit<Task, "id">>): Promise<Task> {
+    const updateData: any = {
+      nome: data.nome,
+      descricao: data.descricao,
+      status: data.status as PrismaStatus | undefined,
+      categoriaId: data.categoriaId,
+    };
+
+    // Remove undefined fields
+    Object.keys(updateData).forEach(
+      (key) => updateData[key] === undefined && delete updateData[key],
+    );
+
     const task = await prisma.tarefa.update({
       where: { id },
-      data: {
-        nome: data.nome,
-        descricao: data.descricao,
-        status: data.status as PrismaStatus,
-      },
+      data: updateData,
+      include: { categoria: true },
     });
     return task as Task;
   }
+
 
   async delete(id: number): Promise<void> {
     await prisma.tarefa.delete({

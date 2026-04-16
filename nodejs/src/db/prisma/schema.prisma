@@ -13,11 +13,12 @@ enum Status {
 }
 
 model Tarefa {
-  id          Int         @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   nome        String
   descricao   String?
-  status      Status      @default(PARADO)
-  categorias  Categoria[] @relation("TarefaParaCategoria")
+  status      Status     @default(PARADO)
+  categoriaId Int?
+  categoria   Categoria? @relation(fields: [categoriaId], references: [id])
 
   @@map("tarefas")
 }
@@ -26,7 +27,8 @@ model Categoria {
   id      Int      @id @default(autoincrement())
   nome    String
   cor     String
-  tarefas Tarefa[] @relation("TarefaParaCategoria")
+  tarefas Tarefa[]
 
   @@map("categorias")
 }
+

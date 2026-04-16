@@ -7,7 +7,9 @@ import { Task } from '@/types/task';
 interface CreateTaskPayload {
   nome: string;
   descricao?: string;
+  categoriaId?: number;
 }
+
 
 export function useCreateTask() {
   const queryClient = useQueryClient();

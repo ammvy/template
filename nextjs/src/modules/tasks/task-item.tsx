@@ -61,7 +61,15 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
   };
 
   return (
-    <div className="bg-brand-surface border border-brand-border rounded-xl p-5 hover:shadow-xl hover:shadow-brand-red/5 transition-all duration-300 group">
+    <div
+      className="bg-brand-surface border border-brand-border rounded-xl p-5 hover:shadow-xl hover:shadow-brand-red/5 transition-all duration-300 group overflow-hidden"
+      style={{
+        borderLeft: task.categoria?.cor
+          ? `6px solid ${task.categoria.cor}`
+          : undefined,
+      }}
+    >
+
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <h3 className="font-bold text-foreground text-lg tracking-tight transition-colors">
