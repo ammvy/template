@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
+  /* System Background & Foreground */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  /* Semantic Tokens */
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-dark: var(--brand-red-dark);
+  --color-brand-white: var(--brand-white);
+  --color-brand-black: var(--brand-black);
+  --color-brand-gray: var(--brand-gray);
+  --color-brand-gray-light: var(--brand-gray-light);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-border: var(--brand-border);
+
+  /* Fonts */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  /* Core Palette */
+  --background: #fdfdfd;
+  --foreground: #09090b;
+  --brand-red: #8b0000;
+  --brand-red-dark: #660000;
+  --brand-white: rgba(255, 255, 255, 0.95);
+  --brand-black: #09090b;
+  --brand-gray: #27272a;
+  --brand-gray-light: #f4f4f5;
+  
+  /* Adaptive Surfaces */
+  --brand-surface: #ffffff;
+  --brand-border: rgba(39, 39, 42, 0.08); /* brand-gray/8% */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #09090b;
+    --foreground: #f4f4f5;
+    
+    /* Dark Adaptive Surfaces */
+    --brand-surface: #121214;
+    --brand-border: rgba(244, 244, 245, 0.1); /* brand-white/10% */
+    --brand-white: rgba(24, 24, 27, 0.95); /* Flip brand-white to Brand-Black-ish for surfaces */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  *, ::after, ::before {
+    border-color: var(--brand-border);
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }

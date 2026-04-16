@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
-import { QueryProvider } from '@/lib/query-provider';
-import './globals.css';
+import type { Metadata } from "next";
+import { QueryProvider } from "@/lib/query-provider";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Task Manager',
-  description: 'Aplicação de gerenciamento de tarefas',
+  title: "Task Manager",
+  description: "Aplicação de gerenciamento de tarefas",
 };
 
 export default function RootLayout({
@@ -14,25 +14,31 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-gray-50 text-gray-900">
+      <body className="bg-background text-foreground">
         <QueryProvider>
           <div className="min-h-screen">
-            <nav className="bg-white border-b border-gray-200 shadow-sm">
+            <nav className="bg-brand-surface/80 backdrop-blur-md border-b border-brand-border sticky top-0 z-50">
               <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-                <h1 className="text-2xl font-bold text-blue-600">Task Manager</h1>
-                <div className="flex gap-4">
-                  <a href="/" className="text-gray-600 hover:text-gray-900 font-medium">
+                <h1 className="text-2xl font-bold tracking-tight text-brand-gray-light">
+                  Task Manager
+                </h1>
+                <div className="flex gap-6">
+                  <a
+                    href="/"
+                    className="text-foreground hover:underline font-medium"
+                  >
                     Tarefas
                   </a>
-                  <a href="/categorias" className="text-gray-600 hover:text-gray-900 font-medium">
+                  <a
+                    href="/categorias"
+                    className="text-foreground hover:underline font-medium"
+                  >
                     Categorias
                   </a>
                 </div>
               </div>
             </nav>
-            <main className="max-w-6xl mx-auto px-4 py-8">
-              {children}
-            </main>
+            <main className="max-w-6xl mx-auto px-4 py-8">{children}</main>
           </div>
         </QueryProvider>
       </body>

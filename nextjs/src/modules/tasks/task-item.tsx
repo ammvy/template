@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useUpdateTask, useDeleteTask } from '@/hooks/tasks';
-import { Task } from '@/types/task';
-import { TaskStatus } from '@/types/task-status';
-import { Button } from '@/components/button';
-import { Trash2, Edit2, Check } from 'lucide-react';
+import React, { useState } from "react";
+import { useUpdateTask, useDeleteTask } from "@/hooks/tasks";
+import { Task } from "@/types/task";
+import { TaskStatus } from "@/types/task-status";
+import { Button } from "@/components/button";
+import { Trash2, Edit2, Check } from "lucide-react";
 
 interface TaskItemProps {
   task: Task;
@@ -13,15 +13,18 @@ interface TaskItemProps {
 }
 
 const statusLabels = {
-  [TaskStatus.PARADO]: 'Parado',
-  [TaskStatus.EM_ANDAMENTO]: 'Em Andamento',
-  [TaskStatus.CONCLUIDA]: 'Concluída',
+  [TaskStatus.PARADO]: "Parado",
+  [TaskStatus.EM_ANDAMENTO]: "Em Andamento",
+  [TaskStatus.CONCLUIDA]: "Concluída",
 };
 
 const statusColors = {
-  [TaskStatus.PARADO]: 'bg-gray-100 text-gray-800',
-  [TaskStatus.EM_ANDAMENTO]: 'bg-yellow-100 text-yellow-800',
-  [TaskStatus.CONCLUIDA]: 'bg-green-100 text-green-800',
+  [TaskStatus.PARADO]:
+    "bg-brand-gray-light text-brand-gray border border-brand-gray/10",
+  [TaskStatus.EM_ANDAMENTO]:
+    "bg-brand-red/5 text-brand-red border border-brand-red/20",
+  [TaskStatus.CONCLUIDA]:
+    "bg-emerald-50 text-emerald-700 border border-emerald-100",
 };
 
 export function TaskItem({ task, onEdit }: TaskItemProps) {
@@ -41,62 +44,65 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
         status: nextStatus,
       });
     } catch (error) {
-      console.error('Erro ao atualizar status:', error);
+      console.error("Erro ao atualizar status:", error);
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Tem certeza que deseja deletar esta tarefa?')) return;
+    if (!window.confirm("Tem certeza que deseja deletar esta tarefa?")) return;
 
     setIsDeleting(true);
     try {
       await deleteTask.mutateAsync(task.id);
     } catch (error) {
-      console.error('Erro ao deletar tarefa:', error);
+      console.error("Erro ao deletar tarefa:", error);
       setIsDeleting(false);
     }
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+    <div className="bg-brand-surface border border-brand-border rounded-xl p-5 hover:shadow-xl hover:shadow-brand-red/5 transition-all duration-300 group">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
-          <h3 className="font-semibold text-gray-900 text-lg">{task.nome}</h3>
+          <h3 className="font-bold text-foreground text-lg tracking-tight transition-colors">
+            {task.nome}
+          </h3>
           {task.descricao && (
-            <p className="text-gray-600 text-sm mt-1">{task.descricao}</p>
+            <p className="text-foreground/60 text-sm mt-1 leading-relaxed">
+              {task.descricao}
+            </p>
           )}
           <span
-            className={`inline-block mt-2 px-3 py-1 rounded-full text-sm font-medium ${
+            className={`inline-block mt-3 px-3 py-0.5 rounded-full text-[10px] uppercase tracking-widest font-bold ${
               statusColors[task.status]
             }`}
           >
             {statusLabels[task.status]}
           </span>
         </div>
-        <div className="flex gap-2 flex-shrink-0">
+        <div className="flex gap-1 flex-shrink-0">
           <button
             onClick={handleToggleStatus}
-            className="text-blue-600 hover:text-blue-700 transition p-2"
+            className="text-foreground/30 hover:text-brand-red transition-colors p-2"
             title="Alterar status"
           >
-            <Check size={20} />
+            <Check size={18} strokeWidth={2.5} />
           </button>
           <button
             onClick={() => onEdit(task)}
-            className="text-gray-600 hover:text-gray-700 transition p-2"
+            className="text-foreground/30 hover:text-brand-red transition-colors p-2"
             title="Editar"
           >
-            <Edit2 size={20} />
+            <Edit2 size={18} strokeWidth={2.5} />
           </button>
-          <Button
-            variant="danger"
-            size="sm"
+          <button
             onClick={handleDelete}
             disabled={isDeleting}
-            className="p-2 h-auto w-auto"
+            className="text-foreground/30 hover:text-red-600 transition-colors p-2"
+            title="Deletar"
           >
-            <Trash2 size={20} />
-          </Button>
+            <Trash2 size={18} strokeWidth={2.5} />
+          </button>
         </div>
       </div>
     </div>
