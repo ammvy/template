@@ -1,9 +1,9 @@
-import { TaskPrismaDAO } from "./daos/prisma/task-prisma-dao.js";
-import { CategoryPrismaDAO } from "./daos/prisma/category-prisma-dao.js";
-import { TaskDrizzleDAO } from "./daos/drizzle/task-drizzle-dao.js";
-import { CategoryDrizzleDAO } from "./daos/drizzle/category-drizzle-dao.js";
-import { TaskService } from "./services/task-service.js";
-import { CategoryService } from "./services/category-service.js";
+import { TaskPrismaDAO } from "./daos/prisma/task.dao.js";
+import { CategoryPrismaDAO } from "./daos/prisma/category.dao.js";
+import { TaskDrizzleDAO } from "./daos/drizzle/task.dao.js";
+import { CategoryDrizzleDAO } from "./daos/drizzle/category.dao.js";
+import { TaskService } from "./services/task.service.js";
+import { CategoryService } from "./services/category.service.js";
 import { TaskStatus } from "./types/task-status.js";
 
 async function testORM(name: string, taskDao: any, categoryDao: any) {

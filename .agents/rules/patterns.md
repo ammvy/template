@@ -7,9 +7,12 @@ trigger: always_on
 # Criação de pastas e arquivos
 
 - Sempre em inglês, usando 'kebab-case'
-- Nomes de pastas: Sempre no plural
+- \*Obs: Quando os arquivos tiverem funções claras como: DAO, Repository, Service, Controller, Route, a declaração dele deve conter '.[função].ts', ou seja: "[nome].dao.ts", "[nome].repository.ts", "[nome].service.ts", "[nome].controller.ts", "[nome].route.ts"...
+
+- Nomes de pastas: No plural, exceto quando for nome de ferramentas, ou seja, uma pasta para o prisma ou drizzle ficaria apenas "prisma/", "zod/", em casos como "funções"(DAO, Repository, Service, Controller, Route) ficaria "daos/", "repositories/", "services/", "controllers/", "routes/"
+- Tipagens e definições prioritárias devem possuir: "\_" no começo do nome
 - Nomes de arquivos: Sempre no singular
-- Exemplo: `src/controllers/user-controller.ts`
+- Exemplo: `src/controllers/user.controller.ts`
 
 # Criação de Classes, Interfaces e Enums
 
