@@ -1,5 +1,9 @@
 import { FastifyInstance, FastifyPluginAsync } from "fastify";
-import { TaskController, NotFoundError, BusinessError } from "../../controllers/task.controller.js";
+import {
+  TaskController,
+  NotFoundError,
+  BusinessError,
+} from "../../controllers/task.controller.js";
 
 const taskSchema = {
   type: "object",
@@ -18,7 +22,10 @@ const errorSchema = {
   },
 };
 
-export async function taskRoutes(fastify: FastifyInstance, controller: TaskController) {
+export async function taskRoutes(
+  fastify: FastifyInstance,
+  controller: TaskController,
+) {
   fastify.get("/", {
     schema: {
       tags: ["Tasks"],
@@ -49,7 +56,8 @@ export async function taskRoutes(fastify: FastifyInstance, controller: TaskContr
       try {
         return await controller.getById(Number(req.params.id));
       } catch (e) {
-        if (e instanceof NotFoundError) return reply.status(404).send({ error: e.message });
+        if (e instanceof NotFoundError)
+          return reply.status(404).send({ error: e.message });
         throw e;
       }
     },
@@ -65,7 +73,10 @@ export async function taskRoutes(fastify: FastifyInstance, controller: TaskContr
         properties: {
           nome: { type: "string" },
           descricao: { type: "string" },
-          status: { type: "string", enum: ["PARADO", "EM_ANDAMENTO", "CONCLUIDA"] },
+          status: {
+            type: "string",
+            enum: ["PARADO", "EM_ANDAMENTO", "CONCLUIDA"],
+          },
         },
       },
       response: {
@@ -78,7 +89,8 @@ export async function taskRoutes(fastify: FastifyInstance, controller: TaskContr
         const task = await controller.create(req.body as any);
         return reply.status(201).send(task);
       } catch (e) {
-        if (e instanceof BusinessError) return reply.status(400).send({ error: e.message });
+        if (e instanceof BusinessError)
+          return reply.status(400).send({ error: e.message });
         throw e;
       }
     },
@@ -94,7 +106,10 @@ export async function taskRoutes(fastify: FastifyInstance, controller: TaskContr
         properties: {
           nome: { type: "string" },
           descricao: { type: "string" },
-          status: { type: "string", enum: ["PARADO", "EM_ANDAMENTO", "CONCLUIDA"] },
+          status: {
+            type: "string",
+            enum: ["PARADO", "EM_ANDAMENTO", "CONCLUIDA"],
+          },
         },
       },
       response: {
@@ -107,8 +122,10 @@ export async function taskRoutes(fastify: FastifyInstance, controller: TaskContr
       try {
         return await controller.update(Number(req.params.id), req.body as any);
       } catch (e) {
-        if (e instanceof NotFoundError) return reply.status(404).send({ error: e.message });
-        if (e instanceof BusinessError) return reply.status(400).send({ error: e.message });
+        if (e instanceof NotFoundError)
+          return reply.status(404).send({ error: e.message });
+        if (e instanceof BusinessError)
+          return reply.status(400).send({ error: e.message });
         throw e;
       }
     },
@@ -129,7 +146,8 @@ export async function taskRoutes(fastify: FastifyInstance, controller: TaskContr
         await controller.remove(Number(req.params.id));
         return reply.status(204).send();
       } catch (e) {
-        if (e instanceof NotFoundError) return reply.status(404).send({ error: e.message });
+        if (e instanceof NotFoundError)
+          return reply.status(404).send({ error: e.message });
         throw e;
       }
     },

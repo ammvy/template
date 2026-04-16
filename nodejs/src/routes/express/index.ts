@@ -90,7 +90,7 @@ export function createExpressApp(): Express {
     apis: ["./src/routes/express/*.ts"],
   });
 
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Routes
   app.use("/tasks", taskRouter(taskController));

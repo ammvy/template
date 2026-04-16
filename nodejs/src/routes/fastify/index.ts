@@ -1,8 +1,6 @@
 import Fastify from "fastify";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
-import path from "path";
-import { createRequire } from "module";
 import { taskRoutes } from "./task.route.js";
 import { categoryRoutes } from "./category.route.js";
 import { TaskController } from "../../controllers/task.controller.js";
@@ -11,17 +9,15 @@ import { TaskService } from "../../services/task.service.js";
 import { CategoryService } from "../../services/category.service.js";
 import { TaskPrismaDAO } from "../../daos/prisma/task.dao.js";
 import { CategoryPrismaDAO } from "../../daos/prisma/category.dao.js";
-
-// Configuração de ambiente para ESM
-const require = createRequire(import.meta.url);
-const swaggerUiPath = path.join(
-  path.dirname(require.resolve("@fastify/swagger-ui")),
-  "static",
-);
+import { SwaggerTheme, SwaggerThemeNameEnum } from "swagger-themes";
 
 export async function createFastifyApp() {
+  const theme = new SwaggerTheme();
+  const content = theme.getBuffer(SwaggerThemeNameEnum.DARK);
+
   const fastify = Fastify({ logger: false });
 
+  // Swagger setup
   await fastify.register(swagger, {
     openapi: {
       info: {
@@ -34,26 +30,14 @@ export async function createFastifyApp() {
     },
   });
 
-  await fastify.register(swaggerUi, {
-    routePrefix: "/docs",
+  fastify.register(swaggerUi, {
+    routePrefix: "/",
+    theme: {
+      css: [{ filename: "theme.css", content: content }],
+    },
     uiConfig: {
-      docExpansion: "full",
-      deepLinking: false,
+      persistAuthorization: true,
     },
-    uiHooks: {
-      onRequest: function (request, reply, next) {
-        next();
-      },
-      preHandler: function (request, reply, next) {
-        next();
-      },
-    },
-    staticCSP: true,
-    transformStaticCSP: (header) => header,
-    transformSpecification: (swaggerObject, request, reply) => {
-      return swaggerObject;
-    },
-    transformSpecificationClone: true,
   });
 
   // Dependecy Injection
@@ -66,7 +50,6 @@ export async function createFastifyApp() {
   const taskController = new TaskController(taskService);
   const categoryController = new CategoryController(categoryService);
 
-  // 3. Register Routes
   fastify.register(async (app) => taskRoutes(app, taskController), {
     prefix: "/tasks",
   });
