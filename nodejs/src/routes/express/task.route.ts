@@ -3,7 +3,7 @@ import {
   TaskController,
   NotFoundError,
   BusinessError,
-} from "../../controllers/task.controller.js";
+} from "../../controllers/task.controller";
 
 export function taskRouter(controller: TaskController): Router {
   const router = Router();
@@ -40,15 +40,19 @@ export function taskRouter(controller: TaskController): Router {
    *         schema:
    *           type: integer
    */
-  router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const task = await controller.getById(Number(req.params.id));
-      res.json(task);
-    } catch (e) {
-      if (e instanceof NotFoundError) return res.status(404).json({ error: e.message });
-      next(e);
-    }
-  });
+  router.get(
+    "/:id",
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const task = await controller.getById(Number(req.params.id));
+        res.json(task);
+      } catch (e) {
+        if (e instanceof NotFoundError)
+          return res.status(404).json({ error: e.message });
+        next(e);
+      }
+    },
+  );
 
   /**
    * @openapi
@@ -73,7 +77,8 @@ export function taskRouter(controller: TaskController): Router {
       const task = await controller.create(req.body);
       res.status(201).json(task);
     } catch (e) {
-      if (e instanceof BusinessError) return res.status(400).json({ error: e.message });
+      if (e instanceof BusinessError)
+        return res.status(400).json({ error: e.message });
       next(e);
     }
   });
@@ -83,8 +88,10 @@ export function taskRouter(controller: TaskController): Router {
       const task = await controller.update(Number(req.params.id), req.body);
       res.json(task);
     } catch (e) {
-      if (e instanceof NotFoundError) return res.status(404).json({ error: e.message });
-      if (e instanceof BusinessError) return res.status(400).json({ error: e.message });
+      if (e instanceof NotFoundError)
+        return res.status(404).json({ error: e.message });
+      if (e instanceof BusinessError)
+        return res.status(400).json({ error: e.message });
       next(e);
     }
   });
@@ -94,7 +101,8 @@ export function taskRouter(controller: TaskController): Router {
       await controller.remove(Number(req.params.id));
       res.status(204).send();
     } catch (e) {
-      if (e instanceof NotFoundError) return res.status(404).json({ error: e.message });
+      if (e instanceof NotFoundError)
+        return res.status(404).json({ error: e.message });
       next(e);
     }
   });

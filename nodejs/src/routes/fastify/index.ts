@@ -2,14 +2,14 @@ import Fastify from "fastify";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 import cors from "@fastify/cors";
-import { taskRoutes } from "./task.route.js";
-import { categoryRoutes } from "./category.route.js";
-import { TaskController } from "../../controllers/task.controller.js";
-import { CategoryController } from "../../controllers/category.controller.js";
-import { TaskService } from "../../services/task.service.js";
-import { CategoryService } from "../../services/category.service.js";
-import { TaskPrismaDAO } from "../../daos/prisma/task.dao.js";
-import { CategoryPrismaDAO } from "../../daos/prisma/category.dao.js";
+import { taskRoutes } from "./task.route";
+import { categoryRoutes } from "./category.route";
+import { TaskController } from "../../controllers/task.controller";
+import { CategoryController } from "../../controllers/category.controller";
+import { TaskService } from "../../services/task.service";
+import { CategoryService } from "../../services/category.service";
+import { TaskPrismaDAO } from "../../daos/prisma/task.dao";
+import { CategoryPrismaDAO } from "../../daos/prisma/category.dao";
 import { SwaggerTheme, SwaggerThemeNameEnum } from "swagger-themes";
 
 export async function createFastifyApp() {

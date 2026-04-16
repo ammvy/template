@@ -3,7 +3,7 @@ import {
   TaskController,
   NotFoundError,
   BusinessError,
-} from "../../controllers/task.controller.js";
+} from "../../controllers/task.controller";
 
 const taskSchema = {
   type: "object",

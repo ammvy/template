@@ -1,10 +1,10 @@
-import { TaskPrismaDAO } from "./daos/prisma/task.dao.js";
-import { CategoryPrismaDAO } from "./daos/prisma/category.dao.js";
-import { TaskDrizzleDAO } from "./daos/drizzle/task.dao.js";
-import { CategoryDrizzleDAO } from "./daos/drizzle/category.dao.js";
-import { TaskService } from "./services/task.service.js";
-import { CategoryService } from "./services/category.service.js";
-import { TaskStatus } from "./types/task-status.js";
+import { TaskPrismaDAO } from "./daos/prisma/task.dao";
+import { CategoryPrismaDAO } from "./daos/prisma/category.dao";
+import { TaskDrizzleDAO } from "./daos/drizzle/task.dao";
+import { CategoryDrizzleDAO } from "./daos/drizzle/category.dao";
+import { TaskService } from "./services/task.service";
+import { CategoryService } from "./services/category.service";
+import { TaskStatus } from "./types/task-status";
 
 async function testORM(name: string, taskDao: any, categoryDao: any) {
   console.log(`\n--- Testando ${name} ---`);
@@ -13,7 +13,10 @@ async function testORM(name: string, taskDao: any, categoryDao: any) {
 
   // 1. Testar Categoria Válida
   try {
-    const cat = await categoryService.createCategory({ nome: "Trabalho", cor: "#123456" });
+    const cat = await categoryService.createCategory({
+      nome: "Trabalho",
+      cor: "#123456",
+    });
     console.log(`[OK] Categoria válida criada: ${cat.nome}`);
   } catch (e: any) {
     console.error(`[FAIL] Erro ao criar categoria válida: ${e.message}`);

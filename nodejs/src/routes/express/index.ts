@@ -2,14 +2,14 @@ import express, { Express } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
-import { taskRouter } from "./task.route.js";
-import { categoryRouter } from "./category.route.js";
-import { TaskController } from "../../controllers/task.controller.js";
-import { CategoryController } from "../../controllers/category.controller.js";
-import { TaskService } from "../../services/task.service.js";
-import { CategoryService } from "../../services/category.service.js";
-import { TaskPrismaDAO } from "../../daos/prisma/task.dao.js";
-import { CategoryPrismaDAO } from "../../daos/prisma/category.dao.js";
+import { taskRouter } from "./task.route";
+import { categoryRouter } from "./category.route";
+import { TaskController } from "../../controllers/task.controller";
+import { CategoryController } from "../../controllers/category.controller";
+import { TaskService } from "../../services/task.service";
+import { CategoryService } from "../../services/category.service";
+import { TaskDrizzleDAO } from "../../daos/drizzle/task.dao";
+import { CategoryDrizzleDAO } from "../../daos/drizzle/category.dao";
 
 export function createExpressApp(): Express {
   const app = express();
@@ -27,8 +27,8 @@ export function createExpressApp(): Express {
   app.use(express.json());
 
   // Dependecy Injection
-  const taskDao = new TaskPrismaDAO();
-  const categoryDao = new CategoryPrismaDAO();
+  const taskDao = new TaskDrizzleDAO();
+  const categoryDao = new CategoryDrizzleDAO();
 
   const taskService = new TaskService(taskDao);
   const categoryService = new CategoryService(categoryDao);

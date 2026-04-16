@@ -1,5 +1,5 @@
-import { Task } from "../../types/task.js";
-import { TaskStatus } from "../../types/task-status.js";
+import { Task } from "../../types/task";
+import { TaskStatus } from "../../types/task-status";
 
 export interface ITaskDAO {
   create(data: Omit<Task, "id">): Promise<Task>;

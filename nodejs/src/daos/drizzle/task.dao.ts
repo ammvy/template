@@ -1,8 +1,8 @@
-import { db } from "../../db/drizzle/index.js";
-import { tarefas } from "../../db/drizzle/schema.js";
-import { Task } from "../../types/task.js";
-import { TaskStatus } from "../../types/task-status.js";
-import { ITaskDAO } from "../_interfaces/task-dao.interface.js";
+import { db } from "../../db/drizzle/index";
+import { tarefas } from "../../db/drizzle/schema";
+import { Task } from "../../types/task";
+import { TaskStatus } from "../../types/task-status";
+import { ITaskDAO } from "../_interfaces/task-dao.interface";
 import { eq, sql } from "drizzle-orm";
 
 export class TaskDrizzleDAO implements ITaskDAO {

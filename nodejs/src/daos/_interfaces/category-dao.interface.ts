@@ -1,4 +1,4 @@
-import { Category } from "../../types/category.js";
+import { Category } from "../../types/category";
 
 export interface ICategoryDAO {
   create(data: Omit<Category, "id">): Promise<Category>;

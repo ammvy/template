@@ -1,7 +1,7 @@
-import { db } from "../../db/drizzle/index.js";
-import { categorias } from "../../db/drizzle/schema.js";
-import { Category } from "../../types/category.js";
-import { ICategoryDAO } from "../_interfaces/category-dao.interface.js";
+import { db } from "../../db/drizzle/index";
+import { categorias } from "../../db/drizzle/schema";
+import { Category } from "../../types/category";
+import { ICategoryDAO } from "../_interfaces/category-dao.interface";
 import { eq } from "drizzle-orm";
 
 export class CategoryDrizzleDAO implements ICategoryDAO {

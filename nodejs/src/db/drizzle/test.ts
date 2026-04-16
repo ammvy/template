@@ -1,6 +1,6 @@
 import "dotenv/config";
-import { db } from "./index.js"; // Using .js for ESM compatibility if needed, or just index
-import { tarefas, categorias, tarefasParaCategorias } from "./schema.js";
+import { db } from "./index"; // Using .js for ESM compatibility if needed, or just index
+import { tarefas, categorias, tarefasParaCategorias } from "./schema";
 
 async function test() {
   console.log("--- Testing Drizzle Connection ---");

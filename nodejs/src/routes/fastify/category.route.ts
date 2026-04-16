@@ -1,6 +1,9 @@
 import { FastifyInstance } from "fastify";
-import { CategoryController } from "../../controllers/category.controller.js";
-import { NotFoundError, BusinessError } from "../../controllers/task.controller.js";
+import { CategoryController } from "../../controllers/category.controller";
+import {
+  NotFoundError,
+  BusinessError,
+} from "../../controllers/task.controller";
 
 const categorySchema = {
   type: "object",
@@ -18,7 +21,10 @@ const errorSchema = {
   },
 };
 
-export async function categoryRoutes(fastify: FastifyInstance, controller: CategoryController) {
+export async function categoryRoutes(
+  fastify: FastifyInstance,
+  controller: CategoryController,
+) {
   fastify.get("/", {
     schema: {
       tags: ["Categories"],
@@ -46,7 +52,8 @@ export async function categoryRoutes(fastify: FastifyInstance, controller: Categ
       try {
         return await controller.getById(Number(req.params.id));
       } catch (e) {
-        if (e instanceof NotFoundError) return reply.status(404).send({ error: e.message });
+        if (e instanceof NotFoundError)
+          return reply.status(404).send({ error: e.message });
         throw e;
       }
     },
@@ -74,7 +81,8 @@ export async function categoryRoutes(fastify: FastifyInstance, controller: Categ
         const category = await controller.create(req.body as any);
         return reply.status(201).send(category);
       } catch (e) {
-        if (e instanceof BusinessError) return reply.status(400).send({ error: e.message });
+        if (e instanceof BusinessError)
+          return reply.status(400).send({ error: e.message });
         throw e;
       }
     },
@@ -102,8 +110,10 @@ export async function categoryRoutes(fastify: FastifyInstance, controller: Categ
       try {
         return await controller.update(Number(req.params.id), req.body as any);
       } catch (e) {
-        if (e instanceof NotFoundError) return reply.status(404).send({ error: e.message });
-        if (e instanceof BusinessError) return reply.status(400).send({ error: e.message });
+        if (e instanceof NotFoundError)
+          return reply.status(404).send({ error: e.message });
+        if (e instanceof BusinessError)
+          return reply.status(400).send({ error: e.message });
         throw e;
       }
     },
@@ -124,7 +134,8 @@ export async function categoryRoutes(fastify: FastifyInstance, controller: Categ
         await controller.remove(Number(req.params.id));
         return reply.status(204).send();
       } catch (e) {
-        if (e instanceof NotFoundError) return reply.status(404).send({ error: e.message });
+        if (e instanceof NotFoundError)
+          return reply.status(404).send({ error: e.message });
         throw e;
       }
     },

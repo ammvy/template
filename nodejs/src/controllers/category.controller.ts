@@ -1,6 +1,6 @@
-import { Category } from "../types/category.js";
-import { ICategoryService } from "../services/_interfaces/category-service.interface.js";
-import { BusinessError, NotFoundError } from "./task.controller.js";
+import { Category } from "../types/category";
+import { ICategoryService } from "../services/_interfaces/category-service.interface";
+import { BusinessError, NotFoundError } from "./task.controller";
 
 export interface CreateCategoryInput {
   nome: string;

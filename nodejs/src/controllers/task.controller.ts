@@ -1,6 +1,6 @@
-import { Task } from "../types/task.js";
-import { TaskStatus } from "../types/task-status.js";
-import { ITaskService } from "../services/_interfaces/task-service.interface.js";
+import { Task } from "../types/task";
+import { TaskStatus } from "../types/task-status";
+import { ITaskService } from "../services/_interfaces/task-service.interface";
 
 export class NotFoundError extends Error {
   constructor(message: string) {
