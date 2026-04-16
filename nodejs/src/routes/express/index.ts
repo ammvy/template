@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { taskRouter } from "./task.route.js";
@@ -12,6 +13,15 @@ import { CategoryPrismaDAO } from "../../daos/prisma/category.dao.js";
 
 export function createExpressApp(): Express {
   const app = express();
+  
+  // CORS configuration - allow all requests
+  app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
+  }));
+  
   app.use(express.json());
 
   // Dependecy Injection

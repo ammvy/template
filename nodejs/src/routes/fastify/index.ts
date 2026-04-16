@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
+import cors from "@fastify/cors";
 import { taskRoutes } from "./task.route.js";
 import { categoryRoutes } from "./category.route.js";
 import { TaskController } from "../../controllers/task.controller.js";
@@ -16,6 +17,14 @@ export async function createFastifyApp() {
   const content = theme.getBuffer(SwaggerThemeNameEnum.DARK);
 
   const fastify = Fastify({ logger: false });
+
+  // CORS configuration - allow all requests
+  await fastify.register(cors, {
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
+  });
 
   // Swagger setup
   await fastify.register(swagger, {
