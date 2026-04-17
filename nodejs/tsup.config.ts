@@ -9,4 +9,6 @@ export default defineConfig({
   minify: false,
   splitting: false,
   outDir: "dist",
+  platform: "node",
+  shims: true,
 });
