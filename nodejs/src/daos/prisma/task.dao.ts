@@ -11,16 +11,22 @@ export class TaskPrismaDAO implements ITaskDAO {
         nome: data.nome,
         descricao: data.descricao,
         status: data.status as PrismaStatus,
-        categoriaId: data.categoriaId,
+        ...(data.categoriaId && {
+          categorias: {
+            connect: {
+              id: data.categoriaId,
+            },
+          },
+        }),
       },
-      include: { categoria: true },
+      include: { categorias: true },
     });
     return task as Task;
   }
 
   async list(): Promise<Task[]> {
     const tasks = await prisma.tarefa.findMany({
-      include: { categoria: true },
+      include: { categorias: true },
     });
     return tasks as Task[];
   }
@@ -28,7 +34,7 @@ export class TaskPrismaDAO implements ITaskDAO {
   async findById(id: number): Promise<Task | null> {
     const task = await prisma.tarefa.findUnique({
       where: { id },
-      include: { categoria: true },
+      include: { categorias: true },
     });
     return task as Task | null;
   }
@@ -55,11 +61,10 @@ export class TaskPrismaDAO implements ITaskDAO {
     const task = await prisma.tarefa.update({
       where: { id },
       data: updateData,
-      include: { categoria: true },
+      include: { categorias: true },
     });
     return task as Task;
   }
-
 
   async delete(id: number): Promise<void> {
     await prisma.tarefa.delete({
