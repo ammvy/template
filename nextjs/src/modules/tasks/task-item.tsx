@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useUpdateTask, useDeleteTask } from "@/hooks/tasks";
 import { Task } from "@/types/task";
 import { TaskStatus } from "@/types/task-status";
 import { Button } from "@/components/button";
@@ -29,8 +28,6 @@ const statusColors = {
 
 export function TaskItem({ task, onEdit }: TaskItemProps) {
   const [isDeleting, setIsDeleting] = useState(false);
-  const updateTask = useUpdateTask();
-  const deleteTask = useDeleteTask();
 
   const handleToggleStatus = async () => {
     const nextStatus =
@@ -38,26 +35,13 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
         ? TaskStatus.EM_ANDAMENTO
         : TaskStatus.CONCLUIDA;
 
-    try {
-      await updateTask.mutateAsync({
-        id: task.id,
-        status: nextStatus,
-      });
-    } catch (error) {
-      console.error("Erro ao atualizar status:", error);
-    }
+    console.log("Mock toggle status task:", task.id, "Next status:", nextStatus);
   };
 
   const handleDelete = async () => {
     if (!window.confirm("Tem certeza que deseja deletar esta tarefa?")) return;
 
-    setIsDeleting(true);
-    try {
-      await deleteTask.mutateAsync(task.id);
-    } catch (error) {
-      console.error("Erro ao deletar tarefa:", error);
-      setIsDeleting(false);
-    }
+    console.log("Mock delete task:", task.id);
   };
 
   return (

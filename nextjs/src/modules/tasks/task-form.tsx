@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useCreateTask, useUpdateTask } from "@/hooks/tasks";
-import { useGetAllCategories } from "@/hooks/categories";
+import { MOCK_CATEGORIES } from "@/constants/mock-data";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import { Task } from "@/types/task";
@@ -20,12 +19,9 @@ export function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
     task?.categoriaId,
   );
 
-  const { data: categories = [] } = useGetAllCategories();
+  const categories = MOCK_CATEGORIES;
 
-  const createTask = useCreateTask();
-  const updateTask = useUpdateTask();
-
-  const isLoading = createTask.isPending || updateTask.isPending;
+  const isLoading = false;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,34 +31,15 @@ export function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
       return;
     }
 
-    try {
-      const data = {
-        id: task?.id,
-        nome,
-        descricao: descricao || undefined,
-        categoriaId: categoriaId || undefined,
-      };
+    const data = {
+      id: task?.id,
+      nome,
+      descricao: descricao || undefined,
+      categoriaId: categoriaId || undefined,
+    };
 
-      console.log(data);
-
-      if (task) {
-        await updateTask.mutateAsync({
-          id: task.id,
-          nome,
-          descricao: descricao || undefined,
-          categoriaId: categoriaId || undefined,
-        });
-      } else {
-        await createTask.mutateAsync({
-          nome,
-          descricao: descricao || undefined,
-          categoriaId: categoriaId || undefined,
-        });
-      }
-      onSubmit?.();
-    } catch (error) {
-      console.error("Erro ao salvar tarefa:", error);
-    }
+    console.log("Mock save task:", data);
+    onSubmit?.();
   };
 
   return (

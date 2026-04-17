@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useGetAllCategories } from "@/hooks/categories";
+import { MOCK_CATEGORIES } from "@/constants/mock-data";
 import { Category } from "@/types/category";
 import { CategoryItem } from "./category-item";
 import { CategoryForm } from "./category-form";
@@ -10,7 +10,9 @@ import { Button } from "@/components/button";
 import { Plus } from "lucide-react";
 
 export function CategoryBoard() {
-  const { data: categories = [], isLoading, error } = useGetAllCategories();
+  const categories = MOCK_CATEGORIES;
+  const isLoading = false;
+  const error = null;
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
@@ -30,9 +32,6 @@ export function CategoryBoard() {
     return (
       <div className="bg-red-50 p-4 rounded-lg text-red-800">
         <p className="font-semibold">Erro ao carregar categorias</p>
-        <p className="text-sm mt-1">
-          {error instanceof Error ? error.message : "Erro desconhecido"}
-        </p>
       </div>
     );
   }

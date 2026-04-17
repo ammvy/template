@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useCreateCategory, useUpdateCategory } from "@/hooks/categories";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import { Category } from "@/types/category";
@@ -31,10 +30,7 @@ export function CategoryForm({
   const [nome, setNome] = useState(category?.nome || "");
   const [cor, setCor] = useState(category?.cor || colorOptions[0]);
 
-  const createCategory = useCreateCategory();
-  const updateCategory = useUpdateCategory();
-
-  const isLoading = createCategory.isPending || updateCategory.isPending;
+  const isLoading = false;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,23 +40,8 @@ export function CategoryForm({
       return;
     }
 
-    try {
-      if (category) {
-        await updateCategory.mutateAsync({
-          id: category.id,
-          nome,
-          cor,
-        });
-      } else {
-        await createCategory.mutateAsync({
-          nome,
-          cor,
-        });
-      }
-      onSubmit?.();
-    } catch (error) {
-      console.error("Erro ao salvar categoria:", error);
-    }
+    console.log("Mock save category:", { id: category?.id, nome, cor });
+    onSubmit?.();
   };
 
   return (

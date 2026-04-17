@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useUpdateCategory, useDeleteCategory } from "@/hooks/categories";
 import { Category } from "@/types/category";
 import { Button } from "@/components/button";
 import { Edit2, Trash2 } from "lucide-react";
@@ -13,19 +12,12 @@ interface CategoryItemProps {
 
 export function CategoryItem({ category, onEdit }: CategoryItemProps) {
   const [isDeleting, setIsDeleting] = useState(false);
-  const deleteCategory = useDeleteCategory();
 
   const handleDelete = async () => {
     if (!window.confirm("Tem certeza que deseja deletar esta categoria?"))
       return;
 
-    setIsDeleting(true);
-    try {
-      await deleteCategory.mutateAsync(category.id);
-    } catch (error) {
-      console.error("Erro ao deletar categoria:", error);
-      setIsDeleting(false);
-    }
+    console.log("Mock delete category:", category.id);
   };
 
   return (

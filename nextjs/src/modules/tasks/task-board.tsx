@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useGetAllTasks } from "@/hooks/tasks";
+import { MOCK_TASKS } from "@/constants/mock-data";
 import { Task } from "@/types/task";
 import { TaskItem } from "./task-item";
 import { TaskForm } from "./task-form";
@@ -10,7 +10,9 @@ import { Button } from "@/components/button";
 import { Plus } from "lucide-react";
 
 export function TaskBoard() {
-  const { data: tasks = [], isLoading, error } = useGetAllTasks();
+  const tasks = MOCK_TASKS;
+  const isLoading = false;
+  const error = null;
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined);
 
@@ -28,9 +30,6 @@ export function TaskBoard() {
     return (
       <div className="bg-red-50 p-4 rounded-lg text-red-800">
         <p className="font-semibold">Erro ao carregar tarefas</p>
-        <p className="text-sm mt-1">
-          {error instanceof Error ? error.message : "Erro desconhecido"}
-        </p>
       </div>
     );
   }
